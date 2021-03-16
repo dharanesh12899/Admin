@@ -1,0 +1,86 @@
+<div class="container-fluid">
+
+  <div style="display:none" id="nope" class="alert alert-warning" role="alert">
+    Please <strong>check your password</strong> Again!
+  </div>
+  <div style="display:none" id="yes" class="alert alert-success" role="alert">
+    Password Update <strong>Successful!</strong>
+  </div>
+
+    <form id="noc" [formGroup]="passauth" class="pass-container">
+
+      <div class="form-group">
+          <label>
+            <input type="password" name="password" formControlName="pass" id="pass">
+            <span id="lab">Password</span>
+          </label>
+          <div *ngIf="(f.pass.touched || submitted) && f.pass.errors">
+            <div *ngIf="f.pass.errors!.required">
+                <i style="color:red ; margin-top: -20px; font-size: 14px;" class="fa fa-exclamation-circle" aria-hiden="true">
+                    <span style="margin-left:10px; font-family:  Helvetica, Arial, sans-serif;">Please Enter Your Password</span>
+                </i>    
+            </div>
+        </div>
+      </div>
+      <div id="cp">
+        Change Password? <span id="chp" (click)="change()">Click here</span>
+      </div>
+      <div>
+        <button type="submit" id="pb" class="btn btn-md btn-warning" (click)="passbtn()">Login</button>
+      </div>
+
+    </form>
+
+    <form id="chpa" [formGroup]="passchange" class="chpass-container">
+
+      <div class="form-group">
+            <input type="password" name="password" formControlName="opass" id="opass">
+            <span id="lab">Old Password</span>
+          <div *ngIf="(c.opass.touched || submitted) && c.opass.errors">
+            <div *ngIf="c.opass.errors!.required">
+                <i style="color:red ; margin-top: -20px; font-size: 14px;" class="fa fa-exclamation-circle" aria-hiden="true">
+                    <span style="margin-left:10px; font-family:  Helvetica, Arial, sans-serif;">Please Enter Your Old Password</span>
+                </i>    
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <input type="password" name="password" formControlName="npass" id="npass">
+          <span id="lab">New Password</span>
+        <div *ngIf="(c.npass.touched || submitted) && c.npass.errors">
+          <div *ngIf="c.npass.errors!.required">
+              <i style="color:red ; margin-top: -20px; font-size: 14px;" class="fa fa-exclamation-circle" aria-hiden="true">
+                  <span style="margin-left:10px; font-family:  Helvetica, Arial, sans-serif;">Please Enter Your New Password</span>
+              </i>    
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+          <input type="password" name="password" formControlName="cnpass" id="cnpass">
+          <span id="lab">Confirm New Password</span>
+        <div *ngIf="(c.cnpass.touched || submitted) && c.cnpass.errors">
+          <div *ngIf="c.cnpass.errors!.required">
+              <i style="color:red ; margin-top: -20px; font-size: 14px;" class="fa fa-exclamation-circle" aria-hiden="true">
+                  <span style="margin-left:10px; font-family:  Helvetica, Arial, sans-serif;">Please Enter Your Confirm Password</span>
+              </i>    
+          </div>
+        </div>
+        <div *ngIf="notequal">
+          <i style="color:red ; margin-top: -20px; font-size: 14px;" class="fa fa-exclamation-circle" aria-hiden="true">
+              <span style="margin-left:10px; font-family:  Helvetica, Arial, sans-serif;">Passwords Don't Match</span>
+          </i>    
+      </div>
+      </div>
+
+      <div id="cp">
+        Go back? <span id="chp" (click)="nochange()">Click here</span>
+      </div>
+
+      <div>
+        <button type="submit" id="cpb" class="btn btn-md btn-warning" (click)="changepassword()">Change Password</button>
+      </div>
+
+    </form>
+</div>

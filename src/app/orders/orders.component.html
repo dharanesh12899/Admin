@@ -1,0 +1,288 @@
+<div class="container-fluid">
+
+    <div class="nav">
+        <div class="logo">TKS</div>
+        <div class="admin"><span class="nico"><i class="ri-admin-line"></i></span>ADMIN</div>
+        <div routerLink="/quicknav" class="nav1"><span class="nico"><i class="ri-dashboard-line"></i></span>Dashboard</div>
+        <div routerLink="/orders" class="nav2"><span class="nico"><i class="ri-store-line"></i></span>Orders</div>
+        <div class="nav3"><span class="nico"><i class="ri-steering-fill"></i></span>Driver</div>
+        <div class="nav4"><span class="nico"><i class="ri-truck-line"></i></span>Vehicles</div>
+        <div class="nav6"><span class="nico"><i class="ri-funds-line"></i></span>Budget</div>
+        <div class="nav6"><span class="nico"><i class="ri-link-m"></i></span>Misc</div>
+        <div class="nav6" (click)="logout()"><span class="nico"><i class="ri-funds-line"></i></span>Signout</div>
+    </div>
+    
+    <div *ngIf="mp==true" class="main-content" id="main">
+        
+        <div *ngIf="load==true" class="loading" id="loading"><img src="../../assets/sq_load.gif"></div>
+        <div class="order-summary1" (click)="pending()">
+            <h3>Pending Orders</h3>
+            <h4 class="ip"><i class="ri-timer-2-line"></i><span>{{processing_i}}</span></h4>
+        </div>
+        <div class="order-summary1" (click)="assigned()">
+            <h3>Approved Orders</h3>
+            <h4 class="ia"><i class="ri-truck-line"></i><span>{{approved_i}}</span></h4>
+        </div>
+        <div class="order-summary1" (click)="delivered()">
+            <h3>Delivered Orders</h3>
+            <h4 class="ide"><i class="ri-check-double-line"></i><span>{{delivered_i}}</span></h4>
+        </div>
+        <div class="order-summary1" (click)="cancelled()">
+            <h3>Cancelled Orders</h3>
+            <h4 class="ic"><i class="ri-close-circle-line"></i><span>{{cancelled_i}}</span></h4>
+        </div>
+    </div>
+    
+    <div *ngIf="pe==true" class="main-content1">
+        <div *ngIf="mload==true" id="mload" class="loading"><img src="../../assets/sq_load.gif"></div>
+        
+        <div class="inner-nav">
+            <div class="innavitem"><i (click)="back()" class="ri-arrow-left-line"></i></div>
+            <h3 id="heading"></h3>
+        </div>
+        <div *ngIf="pos.length==0" class="loading"><img class="acu" src="../../assets/empty.png"></div>
+        <div class="processing-orders">
+                
+            <div class="order-list">
+
+                <div class="search">
+                    <input type="text" name="search" id="search" placeholder="Search Ph No..." (keydown)="searchph($event)"><i id="se" class="ri-search-line"></i>
+                    <span style="margin-left: 10px;margin-bottom: 10px;">
+                        <button class="btn btn-sm btn-warning dropdown-toggle" type="button" id="filter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="flase">
+                        <i class="ri-filter-2-line"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="filter">
+                            <a class="dropdown-item" (click)="clearfil()">Clear filter</a>
+                            <div class="dropdown-header" style="border-bottom: 1px solid gray;">Customer Filter</div>
+                            <a class="dropdown-item" (click)="custfil('regular')">Regular</a>
+                            <a class="dropdown-item" (click)="custfil('common')">Common</a>
+                            <div class="dropdown-header" style="border-bottom: 1px solid gray;">Item Filter</div>
+                            <a class="dropdown-item" (click)="itemfil('Cement')">Cement</a>
+                            <a class="dropdown-item" (click)="itemfil('Sand')">Sand</a>
+                            <a class="dropdown-item" (click)="itemfil('Gravels')">Gravels</a>
+                            <a class="dropdown-item" (click)="itemfil('Water')">Water</a>
+                        </div>
+                    </span>
+                </div>
+
+
+                <div class="list">
+                    
+                    <div *ngFor = "let i of pos" id={{i.id}} class="order-data" (click)="displayData(i.id)">
+                        <div class="item">
+                            <b>{{i.item}}</b>
+                            <div>{{i.address}}</div>
+                        </div>
+                        <div class="item-price">
+                            <b><span> &#8377; </span> {{i.price}}</b>
+                        </div>
+                        <div *ngIf="i.type=='regular'" class="badge"><i class="ri-vip-crown-2-fill"></i></div>
+                    </div>
+                
+                </div>
+
+            </div>
+            
+            <div class="order-details">
+                
+                <div class="order-head">
+                    <h4>Order Info</h4>
+                </div>
+                
+                <div class="info">
+                    <div class="info-info">
+                        <div class="item">
+                            <div>Item</div>
+                            <b id="item-dis"></b>
+                        </div>
+                        <div class="item-price">
+                            <i class="ri-truck-line"></i>
+                        </div>
+                    </div>
+                    <div class="info-info">
+                        <div class="item">
+                            <div>Phone Number</div>
+                            <b id="phone-dis"></b>
+                        </div>
+                        <div class="item-price">
+                            <i class="ri-smartphone-line"></i>
+                        </div>
+                    </div>
+                    <div class="info-info">
+                        <div class="item">
+                            <div>Delivery Date</div>
+                            <b id="delivery-dis"></b>
+                        </div>
+                        <div class="item-price">
+                            <i class="ri-calendar-line"></i>
+                        </div>
+                    </div>
+                    <div class="info-info">
+                        <div class="item">
+                            <div>Order Reference Id</div>
+                            <b id="reference-dis"></b>
+                        </div>
+                        <div class="item-price">
+                            <i class="ri-pantone-line"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-info">
+                    <div class="info-info">
+                        <div class="item">
+                            <div>Order Date</div>
+                            <b id="date-dis"></b>
+                        </div>
+                    </div>
+
+                    <div class="info-info">
+                        <div class="item">
+                            <div>Address</div>
+                            <b id="address-dis"></b>
+                        </div>
+                    </div>
+
+                    <div class="info-info">
+                        <div class="item">
+                            <div>Area</div>
+                            <b id="area-dis"></b>
+                        </div>
+                    </div>
+
+                    <div class="info-info">
+                        <div class="item">
+                            <div>Item</div>
+                            <b id="item-dis-bill"></b>
+                        </div>
+                    </div>
+                    <div class="info-info">
+                        <div class="item">
+                            <div>Status</div>
+                            <b id="status-dis" class="processing-status"></b>
+                        </div>
+                    </div>
+                    <div class="info-info">
+                        <div class="item">
+                            <div>Price</div>
+                            <b><span>&#8377; </span></b><b id="price-dis"> </b>
+                        </div>
+                    </div>
+                    <div class="info-info quantity">
+                        <div class="item">
+                            <div>Quantity (units)</div>
+                            <b id="quantity-dis"></b>
+                        </div>
+                    </div>
+                    <div class="info-info total">
+                        <div class="item">
+                            <div>Total</div>
+                            <h4><b><span>&#8377; </span></b><b id="total-dis"> </b></h4>
+                        </div>
+                    </div>
+                    <div class="info-info">
+                        <div class="item">
+                            <div>Assign Driver</div>
+                            <select class="form-control form-select">
+                                <option>Mr A</option>
+                                <option>Mr B</option>
+                                <option>Mr B</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div *ngIf="aab==true" class="assign-order" style="row-gap: 10px;" id="aaa">
+                        <div class="item">
+                            <button class="btn btn-warning" id="aaab">Assign and Approve</button>
+                        </div>
+                    </div>
+                    <div *ngIf="ddb==true" class="assign-order" style="row-gap: 10px;" id="aaa">
+                        <div class="item">
+                            <button class="btn btn-success" id="dddb">Delivered</button>
+                        </div>
+                    </div>
+                    <div *ngIf="rb==true" class="info-info reject-order" style="row-gap: 10px;">
+                        <div class="item">
+                            <button class="btn btn-danger" id="rrb">Reject Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+
+    </div>
+    
+    <div class="add-manually" data-toggle="modal" data-target="#manualadd">
+        <i class="ri-add-line"></i>
+    </div>
+
+    <div class="modal fade" id="manualadd" tabindex="-1" role="dialog" aria-labelledby="manualadd" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Order</h5>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="phn">Phone Number</label>
+                        <input type="text" class="form-control" id="phn" placeholder="Phone Number" maxlength="10">
+                    </div>
+                            
+                    <div class="form-group">
+                        <label for="item">Item</label>
+                        <select class="form-control form-select mb-3" id="item" (change)="price()">
+                            <option>Select an Option</option>
+                            <option value="Cement">Cement</option>
+                            <option value="Gravels">Gravels</option>
+                            <option value="Sand">Sand</option>
+                            <option value="Water">Water</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quantity">Quantity (uts)</label>
+                        <input type="number" class="form-control" id="quantity" value=1 min = 1 max = 10 (change)="price()">
+                    </div>
+                            
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" placeholder="Address">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area">Area</label>
+                        <select class="form-control form-select mb-3" id="area">
+                            <option value="Nallur" selected>Nallur</option>
+                            <option value="Vijayapuram">Vijayapuram</option>
+                            <option value="Rakkiyapalayam">Rakkiyapalayam</option>
+                            <option value="Maniyakaranpalayam">Maniyakaranpalayam</option>
+                            <option value="Amarjothi">Amarjothi</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="statys">Order Status</label>
+                        <select class="form-control form-select mb-3" id="status">
+                            <option value="Processing" selected>Processing</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Delivered">Delivered</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deldate">Delivery Date</label>
+                        <input type="date" class="form-control" id="deldate" placeholder="Another input">
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <h4 style="color: limegreen;"><span> &#8377; </span>{{est}}</h4>
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" (click)="manually()" id="place">Place Order</button>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>

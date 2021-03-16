@@ -1,0 +1,92 @@
+<div class="container-fluid">
+
+  <div class="nav">
+    <div class="logo">TKS</div>
+    <div class="admin"><span class="nico"><i class="ri-admin-line"></i></span>ADMIN</div>
+    <div routerLink="/quicknav" class="nav1"><span class="nico"><i class="ri-dashboard-line"></i></span>Dashboard</div>
+    <div routerLink="/orders" class="nav2"><span class="nico"><i class="ri-store-line"></i></span>Orders</div>
+    <div class="nav3"><span class="nico"><i class="ri-steering-fill"></i></span>Driver</div>
+    <div class="nav4"><span class="nico"><i class="ri-truck-line"></i></span>Vehicles</div>
+    <div class="nav6"><span class="nico"><i class="ri-funds-line"></i></span>Budget</div>
+    <div class="nav6"><span class="nico"><i class="ri-link-m"></i></span>Misc</div>
+    <div class="nav6" (click)="logout()"><span class="nico"><i class="ri-funds-line"></i></span>Signout</div>
+  </div>
+  
+  <div class="main-content">
+
+    <div class="order-summary">
+      <h3>Total Orders</h3>
+      <h4></h4>
+    </div>
+
+    <div class="order-summary1">
+      <h3>Order Summary</h3>
+      <canvas id="chart-container"></canvas>
+    </div>
+
+    <div class="order-tab">
+      <div id="s1" class="oic"><i class="ri-shopping-cart-line"></i></div>
+      <div class="ode">
+        <div *ngIf="dataload==true else to">
+          <h5><i class="fa fa-circle-o-notch fa-spin"></i></h5>
+        </div>
+        <ng-template #to>
+          <h3>{{totalor}}</h3>
+        </ng-template>
+        <h5>Total orders</h5>
+      </div>
+    </div>
+
+    <div class="order-tab">
+      <div id="s2" class="oic"><i class="ri-shopping-bag-2-line"></i></div>
+      <div class="ode">
+        <div *ngIf="dataload==true else nb">
+          <h5><i class="fa fa-circle-o-notch fa-spin"></i></h5>
+        </div>
+        <ng-template #nb>
+          <h3>{{processing}}</h3>
+        </ng-template>
+        <h5>New bookings</h5>
+      </div>
+    </div>
+
+    <div class="order-tab">
+      <div id="s3" class="oic"><i class="ri-truck-line"></i></div>
+      <div class="ode">
+        <div *ngIf="dataload==true else nv">
+          <h5><i class="fa fa-circle-o-notch fa-spin"></i></h5>
+        </div>
+        <ng-template #nv>
+          <h3>13</h3>
+        </ng-template>
+        <h5>Vehicles</h5>
+      </div>
+    </div>
+
+    <div class="order-tab">
+      <div id="s4" class="oic"><i class="ri-steering-2-line"></i></div>
+      <div class="ode">
+        <div *ngIf="dataload==true else nd">
+          <h5><i class="fa fa-circle-o-notch fa-spin"></i></h5>
+        </div>
+        <ng-template #nd>
+          <h3>13</h3>
+        </ng-template>
+        <h5>Drivers</h5>
+      </div>
+    </div>
+    
+    <div class="regular">
+      <div class="r-c"><h3>Regular Customers </h3><div class="spin" *ngIf="regload==true"><i class="fa fa-circle-o-notch fa-spin"></i></div></div>
+      <div class="customer-details">
+        <div *ngFor="let i of custreg" class="customer">
+          <div class="name"><b><i class="ri-user-star-line"></i> {{i.name}}</b></div>
+          <div class="mobile">{{i.phone}}</div>
+          <div class="remove" title="Reomove from regular customer" (click)="removereg(i.phone)"><b><i class="ri-close-line"></i></b></div> 
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
