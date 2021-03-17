@@ -3,6 +3,7 @@ body{
     font-family: Helvetica, Arial, sans-serif;
     height: 100vh;
     overflow-x: hidden;
+    background-color: #F4F7FE;
 }
 
 ::-webkit-scrollbar {

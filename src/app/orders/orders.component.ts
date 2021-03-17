@@ -3,7 +3,6 @@ import {AuthService} from '../services/auth.service';
 import {Router} from'@angular/router';
 import {ordersList} from 'src/app/interfaces/orderslist';
 import * as firebase from 'firebase'; 
-import { SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG } from 'constants';
 
 @Component({
   selector: 'app-orders',

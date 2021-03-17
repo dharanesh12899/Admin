@@ -1,0 +1,118 @@
+<div class="container-fluid">
+
+    <div class="nav">
+        <div class="logo">TKS</div>
+        <div class="admin"><span class="nico"><i class="ri-admin-line"></i></span>ADMIN</div>
+        <div routerLink="/quicknav" class="nav1"><span class="nico"><i class="ri-dashboard-line"></i></span>Dashboard</div>
+        <div routerLink="/orders" class="nav2"><span class="nico"><i class="ri-store-line"></i></span>Orders</div>
+        <div class="nav3"><span class="nico"><i class="ri-steering-fill"></i></span>Driver</div>
+        <div class="nav4"><span class="nico"><i class="ri-truck-line"></i></span>Vehicles</div>
+        <div class="nav6"><span class="nico"><i class="ri-funds-line"></i></span>Budget</div>
+        <div class="nav7"><span class="nico"><i class="ri-link-m"></i></span>Misc</div>
+        <div class="nav8" (click)="logout()"><span class="nico"><i class="ri-funds-line"></i></span>Signout</div>
+    </div>
+
+    <div *ngIf="mp==true" class="main-content" id="main">
+        
+        <div *ngIf="load==true" class="loading" id="loading"><img src="../../assets/sq_load.gif"></div>
+        <div class="order-summary1" (click)="feedbackpg()">
+            <h3>Feedback</h3>
+            <div class="incon">
+                <h6 class="text-success">Average : {{this.sum}}</h6>
+            </div>
+        </div>
+        <div class="order-summary1" (click)="users()">
+            <h3>Customers</h3>
+            <hr>
+            <div class="incon">
+                <h6 class="text-success">{{this.regular}} Regular</h6>
+                <h6 class="text-secondary two">{{this.common}} Common</h6>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="fbp==true" class="content">
+        <div class="sticky-top inner-nav">
+            <div class="innavitem"><i (click)="back()" class="ri-arrow-left-line"></i></div>
+            <h3 id="heading"></h3>
+        </div>
+        <div *ngIf="load==true" class="loading" id="loading"><img src="../../assets/sq_load.gif"></div>
+        <div class="card-columns">
+
+            <div *ngFor="let i of feedback">
+                <div  *ngIf="i.percent<=25 " class="card border-danger mb-3" style="max-width: 17rem;">
+                    <div class="card-header">
+                        <div><b>{{i.username}}</b><i *ngIf="i.type=='regular'" class="ri-vip-crown-2-fill"></i></div>
+                        <div style="font-size:10px">{{i.user}}</div>
+                    </div>
+                    <div class="card-body text-danger">
+                        <h5 class="card-title">{{i.feed}}</h5>
+                    </div>
+                    <div class="card-footer">Recommendation Level: <b class="text-danger">{{i.percent}} %</b></div>
+                </div>
+                <div  *ngIf="i.percent>25 && i.percent<=75 " class="card border-warning mb-3" style="max-width: 17rem;">
+                    <div class="card-header">
+                        <div><b>{{i.username}}</b><i *ngIf="i.type=='regular'" class="ri-vip-crown-2-fill"></i></div>
+                        <div style="font-size:10px">{{i.user}}</div>
+                    </div>
+                    <div class="card-body  text-warning">
+                        <h5 class="card-title">{{i.feed}}</h5>
+                    </div>
+                    <div class="card-footer">Recommendation Level: <b class="text-warning">{{i.percent}} %</b></div>
+                </div>
+                <div  *ngIf="i.percent>75 " class="card border-success mb-3" style="max-width: 17rem;">
+                    <div class="card-header">
+                        <div><b>{{i.username}}</b><i *ngIf="i.type=='regular'" class="ri-vip-crown-2-fill"></i></div>
+                        <div style="font-size:10px">{{i.user}}
+                    </div>
+                    </div>
+                    <div class="card-body  text-success">
+                        <h5 class="card-title">{{i.feed}}</h5>
+                    </div>
+                    <div class="card-footer">Recommendation Level: <b class="text-success">{{i.percent}} %</b></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="usp==true" class="content">
+        <div class="inner-nav">
+            <div class="innavitem"><i (click)="back()" class="ri-arrow-left-line"></i></div>
+            <h3 id="heading"></h3>
+        </div>
+        <div *ngIf="load==true" class="loading" id="loading"><img src="../../assets/sq_load.gif"></div>
+        <table class="table table-light table-hover">
+            <thead class="bg-dark text-warning">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Phone Number<div id="sph" class="hidden"><input type="text" id="sphi" (keydown)="searchphone($event)"><i class="ri-close-line" (click)="clear()"></i></div><i class="ri-search-2-line" (click)="search()"></i></th>
+                    <th scope="col">Orders</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of customers;let rowindex=index">
+                    <th scope="row">{{rowindex+1}}</th>
+                    <td>{{i.name}}</td>
+                    <td>{{i.phone}}</td>
+                    <td>{{i.orders}}</td>
+                    <td id="typecust">
+                        <div class="dropdown">
+                            <button class="btn btn-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                              {{i.type}}
+                            </button>
+                          
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              <a class="dropdown-item" (click)="statusch(i.phone,'regular')">regular</a>
+                              <a class="dropdown-item" (click)="statusch(i.phone,'common')">common</a>
+                            </div>
+                        </div>
+                    </td>
+                    <td><div class="btn btn-sm btn-danger" (click)="deleteuser(i.phone)"><i class="ri-delete-bin-4-line"></i></div></td>
+                </tr>
+            </tbody>
+      </table>
+    </div>
+</div>

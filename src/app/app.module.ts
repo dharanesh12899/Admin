@@ -10,6 +10,7 @@ import { QuicknavComponent } from './quicknav';
 import { AuthGuard } from './guards/auth.guard';
 import { CommonModule } from '@angular/common';
 import { OrdersComponent } from './orders/orders.component';
+import { MiscComponent } from './misc/misc.component';
 
 @NgModule({
   imports:[
@@ -23,7 +24,8 @@ import { OrdersComponent } from './orders/orders.component';
     AdminAuthComponent,
     ErrorComponent,
     QuicknavComponent,
-    OrdersComponent
+    OrdersComponent,
+    MiscComponent
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
