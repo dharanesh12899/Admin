@@ -380,3 +380,28 @@ select>.red:hover{
     color: tomato;
     background-color: whitesmoke;
 }
+
+.taskdet{
+    display:flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    column-gap: 15px;
+}
+
+tr{
+    border-bottom: 1px solid black;
+}
+
+td{
+    min-width:200px;
+    text-align: left;
+}
+
+.taic{
+    text-align: center;
+}
+
+.dt{
+    padding-left: 20px;
+}

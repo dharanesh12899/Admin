@@ -17,6 +17,7 @@
       <h4 style="color:gold">Dashboard</h4>
       <span style="color:gray">Home > Dashboard</span>
     </div>
+
     <div class="order-summary">
       <h3>Earning</h3>
       <div class="widget">
@@ -159,6 +160,7 @@
 
     <div class="tasks">
       <div class="card text-center">
+
         <ul style="margin-top: 10px;" class="nav nav-tabs" id="nav-tabs" role="tablist">
           <i style="font-size: 24px;padding-left:5px;padding-right:5px" class="ri-file-list-line"></i>
           <li class="nav-item">
@@ -176,11 +178,40 @@
         
         
         <div class="card-body tab-content" id="nav-content">
-          <div class="tab-pane fade show active" id="nav-tasks" role="tabpanel" aria-labelledby="nav-tasks">Tasks</div>
-          <div class="tab-pane fade show" id="nav-done" role="tabpanel" aria-labelledby="nav-done">Done</div>
+          <div class="tab-pane fade show active" id="nav-tasks" role="tabpanel" aria-labelledby="nav-tasks">
+            <div class="taskdet">
+              <table>
+                <tbody>
+                  <tr *ngFor="let i of pending">
+                    <td><i class="ri-checkbox-blank-circle-fill"></i>{{i.task}}</td>
+                    <td class="desc">{{i.desc}} iseydnbciusdh</td>
+                    <td class="dt">{{i.dt}}</td>
+                    <td class="taic">D</td>
+                    <td class="taic">R</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane fade show" id="nav-done" role="tabpanel" aria-labelledby="nav-done">
+            <div class="customer-details">
+              <div class="taskdet">
+                <div *ngFor="let i of completed" class="taskitem">
+                  <div>{{i.task}}</div>
+                  <div class="desc">{{i.desc}}</div>
+                  <td class="dt">{{i.dt}}</div>
+                  <div>D</div>
+                  <div>R</div>
+                  <hr>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
+    
     <div class="modal fade" id="taskadd" tabindex="-1" role="dialog" aria-labelledby="taskadd" aria-hidden="true">
       <div class="modal-dialog modal-dialog-scrollable" role="document">
           <div class="modal-content">
@@ -221,10 +252,11 @@
               
               <div class="modal-footer">
                   <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
-                  <button id="tadd" type="button" class="btn btn-success" (click)="addtask()" id="place">Save</button>
+                  <button id="tadd" type="button" class="btn btn-success" (click)="addtask()">Save</button>
               </div>
           
           </div>
       </div>
-  </div>
+    </div>
+
 </div>

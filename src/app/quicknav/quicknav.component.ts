@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../services/auth.service';
-import {Router} from'@angular/router';
+import {ChildActivationStart, Router} from'@angular/router';
 import * as firebase from 'firebase';
 import {cust_reg} from 'src/app/interfaces/customers';
-import {prods} from 'src/app/interfaces/products'
+import {prods} from 'src/app/interfaces/products';
+import {pend} from 'src/app/interfaces/pending';
 import { identifierModuleUrl, rendererTypeName } from '@angular/compiler';
 declare var Chart:any;
 
@@ -33,13 +34,14 @@ export class QuicknavComponent implements OnInit {
   products:prods[]=[];
   dataload=true;
   proload=true;
+  pending:pend[]=[];
+  completed:pend[]=[];
 
   constructor(private _router: Router,private auth:AuthService) {
     
   }
 
   ngOnInit(): void {
-    (<HTMLElement>document.getElementById("tadd")).setAttribute("data-dismiss","modal");
     firebase.database().ref("/orderdata/").once('value').then((snapshot)=>{
       snapshot.forEach((child)=>{
           child.forEach((inchild)=>{
@@ -87,7 +89,9 @@ export class QuicknavComponent implements OnInit {
       this.customers();
       this.prods();
       this.pricesummary();
-    });;  
+      this.tasks();
+    });
+    (<HTMLElement>document.getElementById("tadd")).setAttribute("data-dismiss","modal");
   }
 
   customers(){
@@ -314,8 +318,26 @@ export class QuicknavComponent implements OnInit {
       task:tn,
       description:des,
       label:lbc,
-      datetime:dt
-    }).then();
+      datetime:dt,
+      status:"Pending"
+    }).then(()=>{
+      (<HTMLDivElement>document.getElementById("taskadd")).style.display="none";
+      this.tasks();
+    });
+  }
+  
+  tasks(){
+    this.completed=[];
+    this.pending=[];
+    firebase.database().ref("/tasks/").once("value").then((snapshot)=>{
+      snapshot.forEach((child)=>{
+        if(child.val().status==="Pending")
+          this.pending.push({"task":child.val().task,"label":child.val().label,"desc":child.val().description,"dt":child.val().datetime,"id":child.val().id});
+        else
+        this.completed.push({"task":child.val().task,"label":child.val().label,"desc":child.val().description,"dt":child.val().datetime,"id":child.val().id})
+
+      })
+    })
   }
 
   logout(){
