@@ -12,24 +12,27 @@
         <div class="nav6" (click)="logout()"><span class="nico"><i class="ri-funds-line"></i></span>Signout</div>
     </div>
     
-    <div *ngIf="mp==true" class="main-content" id="main">
+    <div *ngIf="mp==true">
+        <h4 style="color:gold;margin-left: 260px;margin-top: 10px;">Orders</h4>
         
-        <div *ngIf="load==true" class="loading" id="loading"><img src="../../assets/sq_load.gif"></div>
-        <div class="order-summary1" (click)="pending()">
-            <h3>Pending Orders</h3>
-            <h4 class="ip"><i class="ri-timer-2-line"></i><span>{{processing_i}}</span></h4>
-        </div>
-        <div class="order-summary1" (click)="assigned()">
-            <h3>Approved Orders</h3>
-            <h4 class="ia"><i class="ri-truck-line"></i><span>{{approved_i}}</span></h4>
-        </div>
-        <div class="order-summary1" (click)="delivered()">
-            <h3>Delivered Orders</h3>
-            <h4 class="ide"><i class="ri-check-double-line"></i><span>{{delivered_i}}</span></h4>
-        </div>
-        <div class="order-summary1" (click)="cancelled()">
-            <h3>Cancelled Orders</h3>
-            <h4 class="ic"><i class="ri-close-circle-line"></i><span>{{cancelled_i}}</span></h4>
+        <div class="main-content" id="main">
+            <div *ngIf="load==true" class="loading" id="loading"><img src="../../assets/sq_load.gif"></div>
+            <div class="order-summary1" (click)="pending()">
+                <h3>Pending Orders</h3>
+                <h4 class="ip"><i class="ri-timer-2-line"></i><span>{{processing_i}}</span></h4>
+            </div>
+            <div class="order-summary1" (click)="assigned()">
+                <h3>Approved Orders</h3>
+                <h4 class="ia"><i class="ri-truck-line"></i><span>{{approved_i}}</span></h4>
+            </div>
+            <div class="order-summary1" (click)="delivered()">
+                <h3>Delivered Orders</h3>
+                <h4 class="ide"><i class="ri-check-double-line"></i><span>{{delivered_i}}</span></h4>
+            </div>
+            <div class="order-summary1" (click)="cancelled()">
+                <h3>Cancelled Orders</h3>
+                <h4 class="ic"><i class="ri-close-circle-line"></i><span>{{cancelled_i}}</span></h4>
+            </div>
         </div>
     </div>
     
@@ -38,7 +41,7 @@
         
         <div class="inner-nav">
             <div class="innavitem"><i (click)="back()" class="ri-arrow-left-line"></i></div>
-            <h3 id="heading"></h3>
+            <p style="margin-top:15px" id="heading">Orders > {{page_name}}</p>
         </div>
         <div *ngIf="pos.length==0" class="loading"><img class="acu" src="../../assets/empty.png"></div>
         <div class="processing-orders">
@@ -180,8 +183,8 @@
                             <h4><b><span>&#8377; </span></b><b id="total-dis"> </b></h4>
                         </div>
                     </div>
-                    <div class="info-info">
-                        <div class="item">
+                    <div *ngIf="adb==true else adbb" class="info-info">
+                        <div  class="item">
                             <div>Assign Driver</div>
                             <select class="form-control form-select">
                                 <option>Mr A</option>
@@ -190,6 +193,15 @@
                             </select>
                         </div>
                     </div>
+                    <ng-template #adbb>
+                        <div class="info-info">
+                            <div class="item">
+                                <div>Assigned Driver</div>
+                                <b id="driver">Mr A</b>
+                            </div>
+                        </div>
+                    </ng-template>
+                    
                     <div *ngIf="aab==true" class="assign-order" style="row-gap: 10px;" id="aaa">
                         <div class="item">
                             <button class="btn btn-warning" id="aaab">Assign and Approve</button>

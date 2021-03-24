@@ -131,7 +131,7 @@ export class MiscComponent implements OnInit {
     }
   }
 
-  statusch(ph:string,ty:string){
+  statusch(ph:number,ty:string){
     firebase.database().ref("/user/"+ph).update({
       type:ty
     }).then(()=>{

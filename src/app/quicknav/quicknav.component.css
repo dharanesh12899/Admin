@@ -7,13 +7,10 @@
     align-items: flex-start;
     justify-content: flex-start;
     padding: 0;
-    min-height: 100vh;
-    max-height: 100%;
     width:100%;
-    background-color: rgb(241, 240, 236);
 }
 
-.nav{
+.nav11{
     position: fixed;
     background-color: #051821;
     width: 250px;
@@ -24,7 +21,7 @@
     height: 100%;
 }
 
-.nav .logo{
+.nav11 .logo{
     display: flex;
     width: 250px;
     justify-content: center;
@@ -33,11 +30,11 @@
     cursor: default;
 }
 
-.nav .logo:hover{
+.nav11 .logo:hover{
     background-color: #051821;
 }
 
-.nav .admin{
+.nav11 .admin{
     display: flex;
     width: 250px;
     justify-content: center;
@@ -49,11 +46,11 @@
     cursor: default;
 }
 
-.nav .admin:hover{
+.nav11 .admin:hover{
     background-color: #051821;
 }
 
-.nav div{
+.nav11 div{
     font-size: 18px;
     color: gray;
     cursor: pointer;
@@ -65,15 +62,15 @@
     outline: none;
 }
 
-.nav div span{
+.nav11 div span{
     margin-right: 10px;
 }
 
-.nav div:hover{
+.nav11 div:hover{
     background-color: #1A4645;
 }
 
-.nav .nav1{
+.nav11 .nav1{
     border-left: 2px solid #F8BC24;
     color: white;
     background-color: #1A4645;
@@ -108,6 +105,34 @@
     margin-right: 5px;
 }
 
+.widget{
+    display:flex;
+}
+
+.widget .products{
+    width:200px;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.products .level{
+    background-color: rgba(91, 160, 250, 0.603);
+    transition: all 0.5s ease-in-out;
+}
+
+.widget canvas{
+    margin-top: 25px;
+    width: 650px !important;
+    height: 200px !important;
+}
+
+.products .per{
+    position: absolute;
+    margin-left: 165px;
+    color: rgb(143, 8, 80);
+    font-weight: bolder;
+}
+
 .order-summary{
     padding: 10px;
     height: 300px;
@@ -122,8 +147,10 @@
     padding: 10px;
     min-height: 100%;
     max-height:250px;
-    max-width: 300px;
-    min-width: 250px;
+    min-width: 320px;
+    max-width: 320px;
+    grid-column-start: 4;
+    grid-column-end: 5;
     background-color: white;
     box-shadow: 0px 2px 15px rgba(77, 76, 76, 0.6);
     border-radius: 12px;
@@ -136,8 +163,8 @@
 .order-tab{
     padding: 10px 20px;
     height: 100px;
-    max-width: 300px;
-    min-width: 250px;
+    max-width: 100%;
+    min-width: 270px;
     background-color: white;
     box-shadow: 0px 2px 15px rgba(77, 76, 76, 0.6);
     border-radius: 4px;
@@ -160,23 +187,23 @@
 }
 
 #s1{
-    background-color: #3694E8;
-    color: white;
+    background-color: #3695e880;
+    color: #02549c;
 }
 
 #s2{
-    background-color: #DD7820;
-    color: white;
+    background-color: #dd78208a;
+    color: #9c4a03;
 }
 
 #s3{
-    background-color: #8A40A2;
-    color: white;
+    background-color: #8940a28a;
+    color: #6d0291;
 }
 
 #s4{
-    background-color: #25A141;
-    color: white;
+    background-color: #25a14288;
+    color: #009723;
 }
 
 h5{
@@ -192,6 +219,8 @@ canvas{
 .regular{
     padding: 10px;
     min-height: 250px;
+    max-height: 250px;
+    overflow-y: auto;
     height: fit-content;
     grid-column-start: 1;
     grid-column-end:3;
@@ -204,7 +233,9 @@ canvas{
     flex-direction: column;
 }
 
-.regular .r-c{
+.r-c{
+    background-color:white;
+    width:100px;
     border-bottom: 1px solid gray;
     width: fill;
     display: flex;
@@ -261,4 +292,91 @@ canvas{
 @keyframes rotates{
     0% {transform: rotate(0deg);}
     100% { transform: rotate(360deg);}
+}
+
+.regular1{
+    padding: 10px;
+    min-height: 250px;
+    height: fit-content;
+    grid-column-start: 3;
+    grid-column-end:5;
+    background-color: white;
+    box-shadow: 0px 2px 10px rgba(114, 113, 113, 0.377);
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.price{
+    cursor:pointer;
+    width: 100px;
+}
+
+.inp{
+    grid-column: 2;
+    margin-top:-30px;
+    margin-left: -30px;
+    height: 30px;
+    width: 150px;
+    outline: none;
+}
+
+.hidden{
+    visibility:hidden;
+}
+
+.avail{
+    position: absolute;
+    font-size: 19px;
+    cursor: pointer;
+    margin-top: -28px;
+    color:limegreen;
+}
+
+.noavail{
+    position:absolute;
+    font-size: 19px;
+    cursor: pointer;
+    margin-top: -28px;
+    color:orangered;
+}
+
+.tasks{
+    grid-column-start: 1;
+    grid-column-end:5;
+}
+
+a{
+    cursor:pointer;
+}
+
+select{
+    font-family: "FontAwesome","Helvetica";
+}
+
+.red{
+    color:tomato;
+}
+
+.blue{
+    color: dodgerblue;
+}
+
+.green{
+    color: limegreen;
+}
+
+.yellow{
+    color: gold;
+}
+
+.orange{
+    color: orange;
+}
+
+select>.red:hover{
+    color: tomato;
+    background-color: whitesmoke;
 }

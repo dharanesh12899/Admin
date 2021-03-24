@@ -12,21 +12,24 @@
         <div class="nav8" (click)="logout()"><span class="nico"><i class="ri-funds-line"></i></span>Signout</div>
     </div>
 
-    <div *ngIf="mp==true" class="main-content" id="main">
-        
-        <div *ngIf="load==true" class="loading" id="loading"><img src="../../assets/sq_load.gif"></div>
-        <div class="order-summary1" (click)="feedbackpg()">
-            <h3>Feedback</h3>
-            <div class="incon">
-                <h6 class="text-success">Average : {{this.sum}}</h6>
+    <div *ngIf="mp==true">
+        <h4 style="color:gold;margin-left: 260px;padding-top:10px">Misc</h4>
+        <div class="main-content" id="main">
+            <div *ngIf="load==true" class="loading" id="loading"><img src="../../assets/sq_load.gif"></div>
+            <div class="order-summary1" (click)="feedbackpg()">
+                <h3>Feedback</h3>
+                <hr>
+                <div class="incon">
+                    <h6 class="text-success">Average : {{this.sum}}</h6>
+                </div>
             </div>
-        </div>
-        <div class="order-summary1" (click)="users()">
-            <h3>Customers</h3>
-            <hr>
-            <div class="incon">
-                <h6 class="text-success">{{this.regular}} Regular</h6>
-                <h6 class="text-secondary two">{{this.common}} Common</h6>
+            <div class="order-summary1" (click)="users()">
+                <h3>Customers</h3>
+                <hr>
+                <div class="incon">
+                    <h6 class="text-success">{{this.regular}} Regular</h6>
+                    <h6 class="text-secondary two">{{this.common}} Common</h6>
+                </div>
             </div>
         </div>
     </div>
@@ -34,6 +37,7 @@
     <div *ngIf="fbp==true" class="content">
         <div class="sticky-top inner-nav">
             <div class="innavitem"><i (click)="back()" class="ri-arrow-left-line"></i></div>
+            <p style="margin-top:15px" id="heading">Misc > Feedback</p>
             <h3 id="heading"></h3>
         </div>
         <div *ngIf="load==true" class="loading" id="loading"><img src="../../assets/sq_load.gif"></div>
@@ -78,7 +82,7 @@
     <div *ngIf="usp==true" class="content">
         <div class="inner-nav">
             <div class="innavitem"><i (click)="back()" class="ri-arrow-left-line"></i></div>
-            <h3 id="heading"></h3>
+            <p style="margin-top:15px" id="heading">Misc > Customers</p>
         </div>
         <div *ngIf="load==true" class="loading" id="loading"><img src="../../assets/sq_load.gif"></div>
         <table class="table table-light table-hover">

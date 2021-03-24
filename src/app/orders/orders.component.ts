@@ -17,6 +17,7 @@ export class OrdersComponent implements OnInit {
   dp=false;
   cp=false;
   ddb=false;
+  adb=false;
   processing_i:number=0;
   approved_i:number=0;
   delivered_i:number=0;
@@ -30,6 +31,7 @@ export class OrdersComponent implements OnInit {
   mload=true;
   aab=false;
   rb=false;
+  page_name:string="";
   in:number=0;
   pr=[{'item':'Gravels','price':10000},{'item':'Sand','price':20000},{'item':'Cement','price':30000},{'item':'Water','price':500}];
   est:number=0;
@@ -122,9 +124,9 @@ export class OrdersComponent implements OnInit {
     })
   }
     this.ids=[];
-    this.fos.sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1));
-    if(this.fos.length>0)
-      setTimeout(()=>{this.displayData(this.fos[0].id);},200);
+    this.pos.sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1));
+    if(this.pos.length>0)
+      setTimeout(()=>{this.displayData(this.pos[0].id);},200);
     else
       this.pos=[];
     }
@@ -174,10 +176,12 @@ export class OrdersComponent implements OnInit {
 
   pending(){
     this.in=1;
+    this.page_name="Pending";
     this.mload=true;
     this.mp=false;                   
     this.aab=true;
     this.ddb=false;
+    this.adb=true;
     this.rb=true;
     this.pe=true;
     this.pos=[];
@@ -197,11 +201,13 @@ export class OrdersComponent implements OnInit {
 
   assigned(){
     this.in=2;
+    this.page_name="Approved";
     this.mload=true;
     this.mp=false;
     this.pe=true;
     this.aab=false;
     this.ddb=true;
+    this.adb=false;
     this.rb=true;
     this.pos=[];
     this.pos = this.orders.filter((o)=>{
@@ -219,11 +225,13 @@ export class OrdersComponent implements OnInit {
 
   cancelled(){
     this.in=4;
+    this.page_name="Cancelled";
     this.mload=true;
     this.mp=false;
     this.pe=true;
     this.aab=false;
     this.ddb=false;
+    this.adb=false;
     this.rb=false;
     this.pos=[];
     this.pos = this.orders.filter((o)=>{
@@ -241,11 +249,13 @@ export class OrdersComponent implements OnInit {
 
   delivered(){
     this.in=3;
+    this.page_name="Delivered";
     this.mload=true;
     this.mp=false;
     this.pe=true;
     this.aab=false;
     this.ddb=false;
+    this.adb=false;
     this.rb=false;
     this.pos=[];
     this.pos = this.orders.filter((o)=>{
@@ -303,7 +313,8 @@ export class OrdersComponent implements OnInit {
     area.innerHTML=this.disos[0].area;
     item_bill.innerHTML=this.disos[0].item;
     status.innerHTML=this.disos[0].status;
-    price.innerHTML="10000";
+    var tot=parseInt(this.disos[0].price) / this.disos[0].quantity;
+    price.innerHTML = tot.toString()
     quantity.innerHTML=this.disos[0].quantity.toString();
     total.innerHTML=this.disos[0].price;
     var idd = this.disos[0].id;
@@ -456,9 +467,9 @@ export class OrdersComponent implements OnInit {
     })
   }
     this.ids=[];
-    this.fos.sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1));
-    if(this.fos.length>0)
-      setTimeout(()=>{this.displayData(this.fos[0].id);},200);
+    this.pos.sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1));
+    if(this.pos.length>0)
+      setTimeout(()=>{this.displayData(this.pos[0].id);},200);
     else
       this.pos=[];
     }
