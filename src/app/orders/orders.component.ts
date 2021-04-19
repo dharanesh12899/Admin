@@ -3,6 +3,7 @@ import {AuthService} from '../services/auth.service';
 import {Router} from'@angular/router';
 import {ordersList} from 'src/app/interfaces/orderslist';
 import * as firebase from 'firebase'; 
+import { QuicknavComponent } from '../quicknav';
 
 @Component({
   selector: 'app-orders',
@@ -319,35 +320,88 @@ export class OrdersComponent implements OnInit {
     total.innerHTML=this.disos[0].price;
     var idd = this.disos[0].id;
     var phh = this.disos[0].phone;
-    if(this.disos[0].status==="Processing"){
-      (<HTMLButtonElement>document.getElementById("aaab")).onclick=()=>{
-        this.processbtn(idd,phh);
+    var un="";
+    firebase.database().ref("/user/"+phh).once("value").then((snapshot)=>{
+      un=snapshot.val().username;
+    }).then(()=>{
+      if(this.disos[0].status==="Processing"){
+        (<HTMLButtonElement>document.getElementById("aaab")).onclick=()=>{
+          this.processbtn(idd,phh,un);
+        }
       }
-    }
-    if(this.disos[0].status==="Approved"){
-      (<HTMLButtonElement>document.getElementById("dddb")).onclick=()=>{
-        this.deliverbtn(idd,phh);
+      if(this.disos[0].status==="Approved"){
+        (<HTMLButtonElement>document.getElementById("dddb")).onclick=()=>{
+          this.deliverbtn(idd,phh);
+        }
       }
-    }
-    (<HTMLButtonElement>document.getElementById("rrb")).onclick=()=>{
-      this.rejbtn(idd,phh);
-    }
+      (<HTMLButtonElement>document.getElementById("rrb")).onclick=()=>{
+        this.rejbtn(idd,phh);
+      }
+    })
   }
 
-  processbtn(id:any,phone:any){
+  processbtn(id:any,phone:any,un:string){
     var i=0;
     this.mload=true;
+    var drs=(<HTMLSelectElement>document.getElementById("driversel")).value;
     firebase.database().ref("/orderdata/"+phone+"/"+id).update({
       status:"Approved"
     }).then(()=>{
-      if(this.orders.length>0){
-        this.orders.splice(this.orders.findIndex(a=>a.id === id),1);
-        console.log(i++)
-        setTimeout(()=>{this.pending()},200);
-      }
-      else
-        this.orders=[];
-      })
+      this.assignapprove(id,drs,phone,un);
+    })
+  }
+
+  assignapprove(id:any,driver:string,phone:any,un:string){  
+    this.fos = this.pos.filter(function(or){
+      if(or.id===id)
+        return true;
+      return false;
+    });
+    let del = this.fos[0].delivery;
+    let d = del.slice(4,6);
+    let m = del.slice(0,3);
+    let y = del.slice(7,11);
+    if(m=="Jan")
+      m="01";
+    else if(m=="Feb")
+      m="02";
+    else if(m=="Mar")
+      m="03";
+    else if(m=="Apr")
+      m="04";
+    else if(m=="May")
+      m="05";
+    else if(m=="Jun")
+      m="06";
+    else if(m=="Jul")
+      m="07";
+    else if(m=="Aug")
+      m="08";
+    else if(m=="Sep")
+      m="09";
+    else if(m=="Oct")
+      m="10";
+    else if(m=="Nov")
+      m="11";
+    else
+      m="12";
+    let date=d+"-"+m+"-"+y;
+    firebase.database().ref("/approvedorders/"+driver+"/"+date+"/"+id).set({
+      orderid:id,
+      custname:un,
+      custphone:this.fos[0].phone,
+      deldate:this.fos[0].delivery,
+      item:this.fos[0].item,
+      quantity:this.fos[0].quantity,
+      area:this.fos[0].area,
+    }).then(()=>{
+    if(this.orders.length>0){
+      this.orders.splice(this.orders.findIndex(a=>a.id === id),1);
+      setTimeout(()=>{this.pending()},200);
+    }
+    else
+      this.orders=[];
+    })
   }
 
   rejbtn(id:any,phone:any){

@@ -8,6 +8,7 @@
     justify-content: flex-start;
     padding: 0;
     width:100%;
+    padding-bottom: 20px;
 }
 
 .nav11{
@@ -346,6 +347,7 @@ canvas{
 .tasks{
     grid-column-start: 1;
     grid-column-end:5;
+    box-shadow: 0px 2px 10px rgba(114, 113, 113, 0.377);
 }
 
 a{
@@ -391,6 +393,8 @@ select>.red:hover{
 
 tr{
     border-bottom: 1px solid black;
+    height: 60px;
+    width: 100%;
 }
 
 td{
@@ -402,6 +406,38 @@ td{
     text-align: center;
 }
 
+.desc{
+    min-width: 400px;
+    max-width: 400px;
+}
 .dt{
     padding-left: 20px;
+}
+
+.taskn{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 5px;
+}
+
+.descc{
+    padding-left: 50px;
+    min-width: 800px;
+    max-width: 800px;
+}
+
+.badge{
+    margin-left: 70px;
+    margin-top: -22px;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    color:white;
+    background-color: dodgerblue;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

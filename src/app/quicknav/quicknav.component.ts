@@ -36,6 +36,7 @@ export class QuicknavComponent implements OnInit {
   proload=true;
   pending:pend[]=[];
   completed:pend[]=[];
+  count:number=0;
 
   constructor(private _router: Router,private auth:AuthService) {
     
@@ -329,14 +330,30 @@ export class QuicknavComponent implements OnInit {
   tasks(){
     this.completed=[];
     this.pending=[];
+    this.count=0;
     firebase.database().ref("/tasks/").once("value").then((snapshot)=>{
       snapshot.forEach((child)=>{
-        if(child.val().status==="Pending")
+        if(child.val().status==="Pending"){
           this.pending.push({"task":child.val().task,"label":child.val().label,"desc":child.val().description,"dt":child.val().datetime,"id":child.val().id});
+          this.count++;
+        }
         else
-        this.completed.push({"task":child.val().task,"label":child.val().label,"desc":child.val().description,"dt":child.val().datetime,"id":child.val().id})
-
+          this.completed.push({"task":child.val().task,"label":child.val().label,"desc":child.val().description,"dt":child.val().datetime,"id":child.val().id})
       })
+    })
+  }
+
+  donetask(id:string){
+    firebase.database().ref("/tasks/"+id).update({
+      status:"Completed"
+    }).then(()=>{
+      this.tasks();
+    })
+  }
+
+  deletetask(id:string){
+    firebase.database().ref("/tasks/"+id).remove().then(()=>{
+      this.tasks();
     })
   }
 

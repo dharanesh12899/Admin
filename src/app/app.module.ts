@@ -11,6 +11,9 @@ import { AuthGuard } from './guards/auth.guard';
 import { CommonModule } from '@angular/common';
 import { OrdersComponent } from './orders/orders.component';
 import { MiscComponent } from './misc/misc.component';
+import { DriverComponent } from './driver/driver.component';
+import { VehiclesComponent } from './vehicles/vehicles.component';
+import { BudgetComponent } from './budget/budget.component';
 
 @NgModule({
   imports:[
@@ -25,7 +28,10 @@ import { MiscComponent } from './misc/misc.component';
     ErrorComponent,
     QuicknavComponent,
     OrdersComponent,
-    MiscComponent
+    MiscComponent,
+    DriverComponent,
+    VehiclesComponent,
+    BudgetComponent
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

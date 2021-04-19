@@ -5,9 +5,9 @@
     <div class="admin"><span class="nico"><i class="ri-admin-line"></i></span>ADMIN</div>
     <div routerLink="/quicknav" class="nav1"><span class="nico"><i class="ri-dashboard-line"></i></span>Dashboard</div>
     <div routerLink="/orders" class="nav2"><span class="nico"><i class="ri-store-line"></i></span>Orders</div>
-    <div class="nav3"><span class="nico"><i class="ri-steering-fill"></i></span>Driver</div>
-    <div class="nav4"><span class="nico"><i class="ri-truck-line"></i></span>Vehicles</div>
-    <div class="nav6"><span class="nico"><i class="ri-funds-line"></i></span>Budget</div>
+    <div routerLink="/driver" class="nav3"><span class="nico"><i class="ri-steering-fill"></i></span>Driver</div>
+    <div class="nav4" routerLink="/vehicle" ><span class="nico"><i class="ri-truck-line"></i></span>Vehicles</div>
+    <div routerLink="/budget" class="nav6"><span class="nico"><i class="ri-funds-line"></i></span>Budget</div>
     <div routerLink="/misc" class="nav6"><span class="nico"><i class="ri-link-m"></i></span>Misc</div>
     <div class="nav6" (click)="logout()"><span class="nico"><i class="ri-funds-line"></i></span>Signout</div>
   </div>
@@ -82,7 +82,7 @@
           <h5><i class="fa fa-circle-o-notch fa-spin"></i></h5>
         </div>
         <ng-template #nv>
-          <h3>13</h3>
+          <h3>6</h3>
         </ng-template>
         <h5>Vehicles</h5>
       </div>
@@ -95,7 +95,7 @@
           <h5><i class="fa fa-circle-o-notch fa-spin"></i></h5>
         </div>
         <ng-template #nd>
-          <h3>13</h3>
+          <h3>6</h3>
         </ng-template>
         <h5>Drivers</h5>
       </div>
@@ -164,7 +164,7 @@
         <ul style="margin-top: 10px;" class="nav nav-tabs" id="nav-tabs" role="tablist">
           <i style="font-size: 24px;padding-left:5px;padding-right:5px" class="ri-file-list-line"></i>
           <li class="nav-item">
-            <a class="nav-link active" id="task-tab" data-toggle="tab" href="#nav-tasks" role="tab" aria-controls="nav-tasks" aria-selected="true">Tasks</a>
+            <a class="nav-link active" id="task-tab" data-toggle="tab" href="#nav-tasks" role="tab" aria-controls="nav-tasks" aria-selected="true">Tasks<span class="badge">{{count}}</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="done-tab" data-toggle="tab" href="#nav-done" role="tab" aria-controls="nav-home" aria-selected="true">Completed</a>
@@ -183,11 +183,11 @@
               <table>
                 <tbody>
                   <tr *ngFor="let i of pending">
-                    <td><i class="ri-checkbox-blank-circle-fill"></i>{{i.task}}</td>
-                    <td class="desc">{{i.desc}} iseydnbciusdh</td>
+                    <td class="taskn"><i style="font-size: 24px;" [ngStyle]="{'color':i.label}" class="ri-checkbox-blank-circle-fill"></i>{{i.task}}</td>
+                    <td class="desc">{{i.desc}}</td>
                     <td class="dt">{{i.dt}}</td>
-                    <td class="taic">D</td>
-                    <td class="taic">R</td>
+                    <td class="taic"><i style="color:limegreen;margin-top: 10px;font-size: 24px;cursor:pointer" class="ri-check-line" (click)="donetask(i.id)"></i></td>
+                    <td class="taic"><i style="color:tomato;margin-top: 10px;font-size: 24px;cursor:pointer" class="ri-delete-bin-2-line" (click)="deletetask(i.id)"></i></td>
                   </tr>
                 </tbody>
               </table>
@@ -196,14 +196,15 @@
           <div class="tab-pane fade show" id="nav-done" role="tabpanel" aria-labelledby="nav-done">
             <div class="customer-details">
               <div class="taskdet">
-                <div *ngFor="let i of completed" class="taskitem">
-                  <div>{{i.task}}</div>
-                  <div class="desc">{{i.desc}}</div>
-                  <td class="dt">{{i.dt}}</div>
-                  <div>D</div>
-                  <div>R</div>
-                  <hr>
-                </div>
+                <table>
+                  <tbody>
+                    <tr *ngFor="let i of completed">
+                      <td class="taskn"><i style="font-size: 24px;" [ngStyle]="{'color':i.label}" class="ri-checkbox-blank-circle-fill"></i>{{i.task}}</td>
+                      <td class="descc">{{i.desc}} iseydnbciusdh</td>
+                      <td class="dt">{{i.dt}}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

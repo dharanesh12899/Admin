@@ -1,0 +1,140 @@
+<div class="container-fluid">
+
+    <div class="nav11">
+      <div class="logo">TKS</div>
+      <div class="admin"><span class="nico"><i class="ri-admin-line"></i></span>ADMIN</div>
+      <div routerLink="/quicknav" class="nav1"><span class="nico"><i class="ri-dashboard-line"></i></span>Dashboard</div>
+      <div routerLink="/orders" class="nav2"><span class="nico"><i class="ri-store-line"></i></span>Orders</div>
+      <div class="nav3"><span class="nico"><i class="ri-steering-fill"></i></span>Driver</div>
+      <div class="nav4" routerLink="/vehicle"><span class="nico"><i class="ri-truck-line"></i></span>Vehicles</div>
+      <div routerLink="/budget" class="nav6"><span class="nico"><i class="ri-funds-line"></i></span>Budget</div>
+      <div routerLink="/misc" class="nav6"><span class="nico"><i class="ri-link-m"></i></span>Misc</div>
+      <div class="nav6" (click)="logout()"><span class="nico"><i class="ri-funds-line"></i></span>Signout</div>
+    </div>
+
+    <div *ngIf="mp==true">
+      <h4 style="color:gold;margin-left: 260px;padding-top:10px">Driver</h4>
+
+      <div class="main-content">
+        <div class="order-summary1" (click)="driver('Gowthaman')">
+          <h1><i class="ri-user-line"></i></h1>
+          <h5>Mr Gowthaman</h5>
+        </div>
+
+        <div class="order-summary1" (click)="driver('Harsavardan')">
+          <h1><i class="ri-user-line"></i></h1>
+          <h5>Mr Harsavardan</h5>
+        </div>
+        
+        <div class="order-summary1" (click)="driver('Dharanesh')">
+          <h1><i class="ri-user-line"></i></h1>
+          <h5>Mr Dharanesh</h5>
+        </div>
+        
+        <div class="order-summary1" (click)="driver('Dhivakar')">
+          <h1><i class="ri-user-line"></i></h1>
+          <h5>Mr Dhivakar</h5>
+        </div>
+        
+        <div class="order-summary1" (click)="driver('Dinesh')">
+          <h1><i class="ri-user-line"></i></h1>
+          <h5>Mr Dinesh</h5>
+        </div>
+        
+        <div class="order-summary1" (click)="driver('Babu')">
+          <h1><i class="ri-user-line"></i></h1>
+          <h5>Mr Babu</h5>
+        </div>
+      </div>
+    
+    </div>
+
+    <div *ngIf="mp==false" class="content">
+      <div *ngIf="load==true" class="loading" id="loading"><img src="../../assets/sq_load.gif"></div>
+      <div class="inner-nav">
+        <div class="innavitem"><i (click)="back()" class="ri-arrow-left-line"></i></div>
+        <p style="margin-top:15px" id="heading">Driver > Details</p>
+        <h3 id="heading"></h3>
+      </div>
+      <div class="dri-det">
+        
+        <div class="profile">
+          <div class="order-summary1">
+            <h1><i class="ri-user-line"></i></h1>
+            <h5>Mr {{drvr[0].name}}</h5>
+          </div>
+        </div>
+
+        <div class="data">
+
+          <div class="per-pro">
+            <div class="data-group">
+              <h6>Name:</h6>
+              <h6><b>{{drvr[0].name}}</b></h6>
+            </div>
+            
+            <div class="data-group">
+              <h6>DOB:</h6>
+              <h6><b>{{drvr[0].dob}}</b></h6>
+            </div>
+
+            <div class="data-group">
+              <h6>Experience:</h6>
+              <h6><b>{{drvr[0].experience}}</b></h6>
+            </div>
+
+            <div class="data-group">
+              <h6>Vehicle Managing:</h6>
+              <h6><b>{{drvr[0].vehicle}}</b></h6>
+            </div>
+
+            <div class="data-group">
+              <h6>Tasks Completed:</h6>
+              <h6><b>{{drvr[0].tasks}}</b> <span style="color:limegreen;margin-left: 5px;font-size: 14px;"><b>+{{drvr[0].monthly}}</b></span></h6>
+            </div>
+
+            <div class="data-group">
+              <h6>Attendance:</h6>
+              <h6><b>{{drvr[0].attendance}}%</b></h6>
+            </div>
+          </div>
+
+          <div style="margin-top: 7px;margin-bottom: 7px;">
+            <h6>This Month Salary Splitup</h6>
+          </div>
+          <div class="data-cards">
+            <div class="card-columns">
+
+              <div class="card" style="width: 13rem;">
+                <div class="card-header">
+                  Salary<i style="margin-left: 10px;cursor:pointer" class="ri-edit-line" (click)="vis('sal')"></i><div  style="margin-left: 10px;display: none" id="sal"><input type="text" id="Salary" (keydown)="update($event,drvr[0].name,drvr[0].salary,'Salary')"><i style="margin-left: -17px;cursor:pointer" class="ri-close-line" (click)="hide('sal')"></i></div>
+                </div>
+                <div class="card-body">
+                  <b>Rs {{drvr[0].salary}}</b>
+                </div>
+              </div>
+
+              <div class="card" style="width: 13rem;">
+                <div class="card-header">
+                  Beta<i style="margin-left: 10px;cursor:pointer" class="ri-edit-line" (click)="vis('bet')"></i><div  style="margin-left: 10px;display: none" id="bet"><input type="text" id="Beta" (keydown)="update($event,drvr[0].name,drvr[0].beta,'Beta')"><i style="margin-left: -17px;cursor:pointer" class="ri-close-line" (click)="hide('bet')"></i></div>
+                </div>
+                <div class="card-body">
+                  <b>Rs {{drvr[0].beta}}</b>
+                </div>
+              </div>
+
+              <div class="card" style="width: 13rem;">
+                <div class="card-header">
+                  Total
+                </div>
+                <div class="card-body">
+                  <b style="color: limegreen;">Rs {{drvr[0].salary+drvr[0].beta}}</b>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
